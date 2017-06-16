@@ -29,11 +29,9 @@ Template.message_list.events({
 
     check(message, String);
  
-    // Insert a message
+    // Insert a Message with just the message key...server will handle the rest
     Messages.insert({
-      message,
-      createdAt: (new Date()).toLocaleString(), // current DateTime
-      // owner: Meteor.userId(),
+      message: message,
     });
  
     // Clear form
