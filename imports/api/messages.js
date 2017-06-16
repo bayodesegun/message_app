@@ -4,13 +4,19 @@ import { check } from 'meteor/check';
  
 export const Messages = new Mongo.Collection('messages');
 
+// Define server-only method for removing messages
+// Ensures that user can only remove own messages 
 Meteor.methods({
   'messages.remove'(messageId) {
     check(messageId, String);
- 
+    var message = Messages.findOne(messageId);
+ 	if (message.owner != Meteor.user().emails[0].address) {
+ 		throw new Meteor.Error('not-authorized');
+ 	}
     Messages.remove(messageId);
   },  
 });
+
 // Security check to ensure that 
 // 1. A user is logged in
 // 2. User can only set the 'message' key of the collection (server will handle the rest, thanks)
