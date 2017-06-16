@@ -1,0 +1,36 @@
+<template name="message_list">
+	<h4>Current messages</h4>
+	<table class="table table-responsive table-hover table-bordered" style="overflow: auto;">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Message</th>				
+				<th>Owner</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each messages}}
+				<tr>					
+					<td>{{createdAt}}</td>
+					<td>{{message}}</td>
+					<td>{{owner}}</td>
+					<td> <a title="Delete" id="{{_id}}" class="btn btn-sm btn-danger delete-message">Delete</a> </td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<h4>Add a new message</h4> 
+	<form class="post-message">
+		<div class="row">
+			<div class="col-xs-12">
+		    <div class="input-group">
+		      <input type="text" name="message" placeholder="Type to new message to post and click Post or hit the return key" class="form-control">
+		      <span class="input-group-btn">
+		        <input type="submit" name="submit" value="Post" class="btn btn-primary">
+		      </span>
+		    </div>
+			</div>
+	  </div>
+	</form>
+</template>
