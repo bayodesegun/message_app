@@ -15,7 +15,7 @@
 					<td>{{createdAt}}</td>
 					<td>{{message}}</td>
 					<td>{{owner}}</td>
-					<td> <a title="Delete" id="{{_id}}" class="btn btn-sm btn-danger delete-message">Delete</a> </td>
+					<td> {{#if ownerIsCurrentUser }} <a title="Delete" id="{{_id}}" class="btn btn-sm btn-danger delete-message">Delete</a> {{/if}} </td>
 				</tr>
 			{{/each}}
 		</tbody>

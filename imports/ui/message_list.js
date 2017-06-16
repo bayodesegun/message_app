@@ -8,6 +8,9 @@ Template.message_list.helpers({
   messages() {
     return Messages.find({}, { sort: { createdAt: -1 } });
   },
+  ownerIsCurrentUser() {
+  	return this.owner == Meteor.user().emails[0].address;
+  }
 });
 
 Template.message_list.events({
