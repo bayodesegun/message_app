@@ -32,18 +32,19 @@ Messages.allow({
   insert: function (userId, doc) {
   	// Mr user needs only give us the message
   	if (Meteor.isClient) {
-    	return Meteor.userId() && _.without(_.keys(doc), 'message').length === 0;
+    	return userId && _.without(_.keys(doc), 'message').length === 0;     
 	}
-
 	// server needs to add other keys to the collection, but a user must still be logged on
-	return Meteor.userId(); 
+	return userId; 
   }
 })
 
-// Let the server do the adding of timestamp and user's email
+// Let the server do the adding of timestamp, user's email and id 
+// (if not already done, say in a test scenario)
 if (Meteor.isServer) {
-  Messages.before.insert(function (userId, doc) {
+  Messages.before.insert(function (userId, doc) {    
     doc.createdAt = (new Date()).toLocaleString();
-    doc.owner = Meteor.user().emails[0].address;
+    doc.owner = doc.owner ? doc.owner : Meteor.users.findOne(userId).emails[0].address;
+    doc.ownerId = doc.ownerId ? doc.ownerId : userId;
  });
 }
