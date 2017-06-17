@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { throwError } from '../../lib/globals.js';
  
 export const Messages = new Mongo.Collection('messages');
 
@@ -14,14 +15,14 @@ if (Meteor.isServer) {
 // Define server-only method for removing messages
 // Ensures that user can only remove own messages 
 Meteor.methods({
-  'messages.remove'(messageId) {
+  'messages.remove' (messageId) {
     check(messageId, String);
-    var message = Messages.findOne(messageId);
- 	if (message.owner != Meteor.user().emails[0].address) {
- 		throw new Meteor.Error('not-authorized');
+    const message = Messages.findOne(messageId);    
+ 	if (message.ownerId !== this.userId) {
+ 		return throwError(403, 'unauthorized');
  	}
     Messages.remove(messageId);
-  },  
+  }, 
 });
 
 // Security check to ensure that 
