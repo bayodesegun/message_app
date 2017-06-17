@@ -23,6 +23,16 @@ Meteor.methods({
  	}
     Messages.remove(messageId);
   }, 
+
+  // for testing purposes
+  'dropDatabase' () {
+    if (process.env.NODE_ENV === 'development') {
+      Meteor.users.remove({});
+      Messages.remove({});
+    } else {
+      console.log('Can only drop the database in development mode');
+    }
+  },
 });
 
 // Security check to ensure that 
