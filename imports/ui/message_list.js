@@ -5,11 +5,15 @@ import { Messages } from '../api/messages.js';
 import './message_list.html';
 
 Template.message_list.helpers({
+  // Fetch messages, order by date descending
   messages() {
     return Messages.find({}, { sort: { createdAt: -1 } });
   },
   ownerIsCurrentUser() {
-  	return this.owner == Meteor.user().emails[0].address;
+  	return this.ownerId === Meteor.userId();
+  },
+  showOwner() {
+  	return this.onwerId === Meteor.userId() ? 'You' : this.owner;
   }
 });
 
