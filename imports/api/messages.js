@@ -4,6 +4,13 @@ import { check } from 'meteor/check';
  
 export const Messages = new Mongo.Collection('messages');
 
+// explicitly publish messages to clients
+if (Meteor.isServer) {
+  Meteor.publish('messages', function messagesPublication() {
+    return Messages.find();
+  });
+}
+
 // Define server-only method for removing messages
 // Ensures that user can only remove own messages 
 Meteor.methods({
