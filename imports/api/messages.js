@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { throwError } from '../../lib/globals.js';
+import { Factory } from 'meteor/dburles:factory';
+import faker from 'faker';
  
 export const Messages = new Mongo.Collection('messages');
 
@@ -58,3 +60,11 @@ if (Meteor.isServer) {
     doc.ownerId = doc.ownerId ? doc.ownerId : userId;
  });
 }
+
+// define a factory for Messages
+Factory.define('messages', Messages, {
+  message: () => faker.lorem.sentence(),
+  owner: () => faker.internet.email(),
+  ownerId: () => faker.random.uuid() ,
+  createdAt: () => (new Date()).toLocaleString(),
+});
