@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - "7"
+before_script:
+  # Install meteor
+  - curl https://install.meteor.com | /bin/sh
+  - meteor npm install
 script:
   - meteor test --driver-package practicalmeteor:mocha
 services:
