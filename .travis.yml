@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "7"
 install:
-  - meteor npm install
+  - npm install
 script:
   - meteor test --driver-package practicalmeteor:mocha
 services:
