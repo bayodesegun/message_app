@@ -1,12 +1,13 @@
 language: node_js
 node_js:
   - "7"
-before_script:
-  # Install meteor
+env:
+  - MOCHA_REPORTER=console
+before_install:
+  # Install meteor and spacejam
   - curl https://install.meteor.com | /bin/sh
   - export PATH=$HOME/.meteor:$PATH
   - meteor npm install
-  - meteor add practicalmeteor:mocha
   - npm install -g spacejam
 script:
   - spacejam test --driver-package practicalmeteor:mocha
