@@ -6,7 +6,9 @@ before_script:
   - curl https://install.meteor.com | /bin/sh
   - export PATH=$HOME/.meteor:$PATH
   - meteor npm install
+  - meteor add practicalmeteor:mocha
+  - npm install -g spacejam
 script:
-  - meteor test --driver-package practicalmeteor:mocha
+  - spacejam test --driver-package practicalmeteor:mocha
 services:
   - mongodb
