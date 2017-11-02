@@ -3,6 +3,9 @@ node_js:
   - 6
 env:
   - MOCHA_REPORTER=console
+cache:
+  directories:
+    - node_modules
 before_install:
   # Install meteor and spacejam
   - curl https://install.meteor.com | /bin/sh
